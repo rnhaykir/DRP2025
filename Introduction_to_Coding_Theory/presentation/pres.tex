@@ -1,0 +1,334 @@
+\section{Algebraic Coding Theory}
+
+\subsection{Hamming-metric Codes}
+\begin{frame}[allowframebreaks]
+        \begin{block}{Linear Codes}
+         Let $1 \leq k \leq n$ be positive integers. $C$ is an $[n, k]$ \textit{linear code} over $\mathbb F_q$, if $C$ is a $k$ dimensional linear subspace of $\mathbb F_q^n$.
+        \end{block} 
+
+        \begin{block}{Hamming Weight}
+        Let n be a positive integer. The \textit{Hamming weight} of 
+        $\textbf{x} \in \mathbb F_q^n$ is given by
+        \[
+        \mathrm{wt}_H(x) = 
+        \left| \{\, i \in \{1, \dots, n\} 
+        \mid x_i \neq 0 \,\} \right|.
+        \]    
+        \end{block}
+
+        \begin{exampleblock}{Example}
+            Define 
+            \[
+                C = 
+                \{\,
+                (0,0,0,0,0), (1,0,0,0,0), (0,1,0,0,0), (1,1,0,0,0)  
+                \,\}
+            \]
+            $C$ is a $[5, 2]$ linear code over $\mathbb{F}_2$ with 
+            $|C| = q^k = 2^2 = 4$.
+            \[
+                wt_H(c_1)=5,\,wt_H(c_2)=wt_H(c_3)=4,\,wt_H(c_24)=3. 
+            \] 
+        \end{exampleblock}
+        
+\framebreak
+
+        \begin{block}{Hamming Distance}
+        For $\textbf{x}, \textbf{y} \in \mathbb F_q^n$ the \textit{Hamming distance} between \textbf{x} and \textbf{y} is the number of indices they differ that is given by
+        \[
+        \mathrm{d}_H(x, y) =
+        \left| \{\, i \in \{1, \dots, n\} 
+        \mid x_i \neq y_i \,\} \right|.
+        \]
+        \end{block}
+
+        \begin{alertblock}{Notice}  
+            For a linear code, Hamming distance is an induced form of Hamming weight,
+            \[
+                \mathrm{d}_H(x, y) = \mathrm{wt}_H(x-y).
+            \]
+        \end{alertblock}
+
+\framebreak
+
+        \begin{block}{Minimum Distance}
+        Let $C$ be a code over $\mathbb F_q$. The \textit{minimum Hamming distance} of $C$ is given by
+        \[
+        \mathrm{d}_H(C) = 
+        \min\{\,d_H(\textbf{x}, \textbf{y}) \mid 
+        \textbf{x}, \textbf{y} \in C, \textbf{x} \neq \textbf{y} \,\}.
+        \]
+        \end{block}
+
+        %\begin{block}{Hamming Ball}For a positive integer $r$, we define \emph{Hamming ball} as all vectors in $\mathbb{F}_q^n$ with Hamming weight at most $r$:\[ B_H(r, n, q) =\{\, \mathbf{x} \in \mathbb{F}_q^n \mid  \mathrm{wt}_H(\textbf{x}) \leq \textit{r}\,\}.\] \end{block}
+
+        \begin{exampleblock}{Example}
+            $d_H(c_1, c_2)=d_H(c_1, c_3)=1\,d_H(c_1, c_4)=2,\,d_H(c_2, c_3)=2,\,d_H(c_2, c_4)=1,\,d_h(c_3, c_4)=1.$\\
+            Thus, $d_H(C)=1$.
+        \end{exampleblock}
+        
+\framebreak
+
+    \begin{block}{Decoding Algorithm}
+        The minimum distance of a code is connected to the error correcting capacity of that code. A code can correct up to t errors if for all 
+        $\mathbf{x} \in \mathbb{F}_q^n$ with $d_H(\mathbf{x}, C) \leq t$, there is a unique $\mathbf{y} \in C$ such that $d_H(\mathbf{x}, \mathbf{y}) \leq t$.
+        We construct an \textit{decoding algorithm} $D$ to find the closest codeword $\mathbf{y} \in C$ such that $d_H(\mathbf{x}, \mathbf{y}) \leq t$ for a given 
+        $\mathbf{x} \in \mathbb{F}_q^n$.\\[0.4cm]
+    \end{block}
+    
+\framebreak
+
+    \begin{block}{Theorem 1}
+        [Singleton Bound]
+        \textit{Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then,}
+        \[
+        d_H \leq n - k + 1.
+        \]        
+    \end{block}
+
+    \begin{block}{Proof}
+        Let $C$ be a linear code over $\mathbb{F}_q^n$ and define $\varphi: C \xrightarrow{}\mathbb{F}_q^{n-d_H+1}$ where 
+        $\varphi(c_1, c_2, \dots,c_n) = (c_1,c_2,\dots,c_{n-d_H+1})$. 
+        Let $c,c' \in C$ and $\varphi(c)=\varphi(c')$.
+        Then $d_H(c, c') \leq d_H-1$.
+        But $d_H(C)=d_H$ so $d_H(c, c') \geq d_H$. So $c = c'$. 
+        $\varphi$ is injective and $\varphi(C) \subseteq \mathbb{F}_q^{n-d_H+1}$. Then $q^{n-d_H+1}\geq|\varphi(C)|=|C|=q^k$.
+        Thus, $d_H\leq n-k+1 $.
+    \end{block}
+
+\framebreak
+
+    \begin{block}{Generator Matrix}
+        Let $k \leq n$ be positive integers, and $C$ be an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{G} \in \mathbb{F}_q^{k \times n}$ is \textit{generator matrix of} $C$ if 
+        \[
+        C = 
+        \{\, \mathbf{xG} \mid \mathbf{x} \in \mathbb{F}_q^k\,\},
+        \]
+        that is the rows of $\mathbf{G}$ forms a basis of $C$.
+    \end{block}
+
+    \begin{exampleblock}{Example}
+    \[
+    G = \begin{pmatrix}
+        1 & 0 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0 & 0 
+    \end{pmatrix} \in \mathbb{F}_2^{2 \times 5}
+    \] is a generator matrix of $C$.
+    \end{exampleblock}
+
+\framebreak
+
+    \begin{block}{Parity-Check Matrix}
+        Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{H} \in \mathbb{F}_q^{(n-k) \times n}$ is \textit{parity-check matrix of} $C$ if 
+        \[
+        C = 
+        \{\, \mathbf{y} \in \mathbb{F}_q^n \mid \mathbf{Hy}^T = 0\,\}.
+        \]
+        $\mathbf{xH}^T$ is called a \textit{syndrome} for any $\mathbf{x} \in \mathbb{F}_q^n$.
+    \end{block}
+
+    \begin{exampleblock}{Example}
+    \[
+    H = \begin{pmatrix}
+        0 & 0 & 1 & 0 & 1\\
+        0 & 0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 & 1
+    \end{pmatrix} \in \mathbb{F}_2^{3 \times 5}
+    \] is a parity-check matrix of $C$.
+    \end{exampleblock}
+    
+\end{frame}
+
+\subsection{Reed-Solomon Codes}
+\begin{frame}
+
+    \begin{block}{Generalized Reed-Solomon code}
+        Let $k \leq n \leq q$ be positive integers. Let $\alpha \in \mathbb{F}_q^n$ be an n-tuple of distinct elements and $\beta \in \mathbb{F}_q^n$ be an n-tuple of nonzero elements. The \textit{Generalized Reed-Solomon code} of length $n$ and dimension $k$ is defined as
+        \[
+        GRS_{n,k}(\alpha, \beta) = \{\, (\beta_1f(\alpha_1), \dots, \beta_nf(\alpha_n)) \mid f \in \mathbb{F}_q[x], deg(f) < k \,\}.
+        \]
+    \end{block}
+
+    \begin{block}{Reed-Solomon Codes}
+        When $\beta = \{\,1, \dots,1 \,\}$, we define \textit{Reed-Solomon codes} as
+        \[
+        RS_{n,k}(\alpha) = \{\, (f(\alpha_1), \dots, f(\alpha_n)) \mid f \in \mathbb{F}_q[x], deg(f) < k \,\}.
+        \]
+    \end{block}
+
+    \begin{exampleblock}{Example}
+        Let $\alpha = \{\,1,0,2\,\} \in \mathbb{F}_3^3$, $\beta = \{\,2,1,2 \,\} \in \mathbb{F}_3^3$ and $f = x+1 \in \mathbb{F}_3[x]$.\\
+        Then
+        \[
+            GRS_{3,k}(\alpha, \beta) = \{\, (1,1,0)\,\}.
+        \]
+    \end{exampleblock}
+    
+\end{frame}
+
+\subsection{Goppa Codes}
+\begin{frame}[allowframebreaks]
+    Let $m$ be a positive integer and $q$ be an prime number. Let $n = q^m$ and $\mathbb{F}_{q^m}$ be a finite field. Let $G \in \mathbb{F}_{q^m}[x]$. Define the quotient ring as
+    \[
+    S_m = \mathbb{F}_{q^m}[x] / \langle G \rangle.
+    \]
+    \begin{block}{Classical Goppa Codes}
+    Let $\alpha \in \mathbb{F}_{q^m}^n$ be an n-tuple of distinct elements and $G(\alpha_i) \neq 0$ for all $i \in \{\,1, \dots, n \,\}$. We define the \textit{classical q-ary Goppa codes} as
+    \[
+    \Gamma(\alpha, \beta) = 
+    \{\,c \in \mathbb{F}_q^n \mid \sum_{i = 1}^n \frac{c_i}{x - \alpha_i} = 0 \text{ in } S_m \,\}.
+    \]
+    \end{block}
+    
+\framebreak
+
+    \begin{exampleblock}{Example}
+        \noindent Choose parameters $[n, m, t]$ as $[3, 3, 2]$.\\
+        Represent $\mathbb{F}_8 \cong \mathbb{F}_2[x]/ \langle x^3+x+1 \rangle$. Let $\alpha$ be the root of $x^3+x+1$. So $\mathbb{F}_8 = \{\,0,1,\alpha,\alpha^2,\alpha+1,\alpha^2+\alpha, \alpha^2+\alpha+1,\alpha^2+1\,\}.$\\ 
+        Let be the irreducible polynomial $G = x^2+x+1 \in \mathbb{F}_8[x]$.\\
+        Construct the quotient ring $S_3 = \mathbb{F}_8/\langle x^2+z+1\rangle.$\\
+        Choose a set that avoids the roots of $G$ in $S_3$. Let this set be 
+        $G'=\{\,1, \alpha^2,\alpha^2+1\,\}$, then
+        \[        
+        \noindent G(1)=1,G(\alpha^2)=\alpha+1,
+        G(\alpha^2+\alpha+1)=\alpha^2+1,G(\alpha^2+1)=\alpha+1.
+        \]\\
+    \end{exampleblock}   
+    
+    \vskip-1em
+
+    \begin{exampleblock}{}
+        Parity-check equations over $\mathbb{F}_2$ gives,\\[0.4cm]
+        \begin{pmatrix}
+            1/G(1) &1/G(\alpha^2)& 1/G(\alpha^2+1)\\
+            1/G(1) &\alpha^2/G(\alpha^2)& \alpha^2+1/G(\alpha^2+1)
+        \end{pmatrix} = \begin{pmatrix}
+            1 & \alpha+1 & \alpha+1\\
+            1 & 1 & 1
+        \end{pmatrix}.\\[0.4cm]
+    \end{exampleblock}
+      \end{frame}
+    \begin{frame}{}
+    \begin{exampleblock}{}
+        Expanding to $\mathbb{F}_2$ using 3-bit column vector we get,\\[0.4cm]
+        $H$=\begin{pmatrix}
+            1&1&1\\
+            0&1&1\\
+            0&0&0\\
+            1&1&1\\
+            0&0&0\\
+            0&0&0
+        \end{pmatrix}.\\[0.4cm]
+        Dimension $k = n-rank(H)=3-2=1$. Thus these parameter choice gives a trivial code, $\Gamma(\alpha, \beta) = \{\,(0,0,0)\,\}$. 
+    \end{exampleblock}  
+\end{frame}
+
+\subsection{Cyclic Codes}
+\begin{frame}
+    Let $c=\{c_1, c_2, \dots, c_n\} \in \mathbb{F}_q^n$, then its \textit{cyclic shift} is denoted as
+    \[
+    \sigma(c) = \{c_n, c_1, \dots, c_{n-1}\}.
+    \]
+    \begin{block}{Cyclic Codes}
+        An $[n, k]$ linear code $C$ over $\mathbb{F}_q$ is \textit{cyclic} if $\sigma(C) = C$.    
+    \end{block}
+    \begin{exampleblock}{Example}
+        Let $C$ be a binary code of length 3, where $C = \{\,(0,0,0),(1,1,0),(0,1,1),(1,0,1)\,\}$. All shifts of $C$ are in $C$. Thus, it is a cyclic code.\\
+        Our first example is not a cyclic code since,
+        \[
+        (1,1,0,0,0) \xrightarrow{} (0,1,1,0,0) \notin C.
+        \]
+        
+    \end{exampleblock}
+\end{frame}
+
+\subsection{Reed-Muller Codes}
+\begin{frame}
+
+    Let $p$ be a prime, $m,r$ positive integers, and $q = p^n$. Let $\mathbb{F}_q[x_1, \dots, x_m]_\leq r$ be the $\mathbb{F}_q$-vector space of polynomials with $m$ variables and degree at most $r$. Fix an order $\{\, \alpha_1, \dots, \alpha_{q^m} \,\}$ of $\mathbb{F}_q^m$.
+
+    \begin{block}{Reed-Muller Codes}
+        The \textit{Reed-Muller} code $RM_q(m, r)$ over $\mathbb{F}_q$ is the image of the map
+        \[
+        ev:\mathbb{F}_q[x_1, \dots, x_m]_\leq r \xrightarrow{} \mathbb{F}_q^{q^m}
+        \]
+        where
+        \[
+        ev(f) = (f(\alpha_1), \dots, f(\alpha_{q^m})).
+        \]
+    \end{block}
+
+    
+    
+\end{frame}
+
+
+\subsection{Code Equivalence}
+\begin{frame}[allowframebreaks]
+    \begin{block}{Isometry}
+        Let $V$ be a space with distance $d$ invariant. Linear map $\varphi: V \xrightarrow{}V$ is an \textit{isometry} if for all $\mathbf{x}, \mathbf{y} \in V$ we have $d(\mathbf{x}, \mathbf{y}) = d(\varphi(\mathbf{x}), \varphi(\mathbf{y}))$. 
+    \end{block}
+
+    \begin{block}{Code Equivalence}
+        Let $C_1, C_2 \subseteq V$ be linear codes. $C_1$ is \textit{equivalent} to $C_2$ if there is an isometry $\varphi \in I_d$ such that $\varphi(C_1) = \varphi(C_2)$.
+    \end{block}
+
+    \begin{block}{Permutation Equivalence}
+        Code $C_1$ is \textit{permutation equivalent} to $C_2$ if there exists $\sigma \in S_n$ with $\sigma(C_1) = C_2$.   
+    \end{block}
+    
+\framebreak
+
+    \begin{exampleblock}{Example}
+        Consider the codes $C_1 \subseteq \mathbb{F}_3^3$ generated by $\mathbf{G}_1 = \begin{pmatrix}
+        1 & 0 & 2 \\ 0 & 1 & 1
+    \end{pmatrix}$ and $C_2 \subseteq \mathbb{F}_3^3$ generated by $\mathbf{G}_2 = \begin{pmatrix}
+        1 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix}$. Are these codes permutation equivalent?
+    \end{exampleblock}
+
+    \begin{block}{Solution}
+    \[C_1 = \{\,(0,0,0),(1,1,0),(1,2,1),(2,1,2),(2,2,0),(0,1,1),(1,0,2),(0,2,2),(2,0,1) \,\}\\
+    C_2 = \{\,(0,0,0),(1,1,1),(1,2,1),(2,1,2),(2,2,2),(0,1,0),(0,2,0),(2,0,2),(2,0,1) \,\}.
+    \]\\
+    $C_1$ and $C_2$ are not permutation equivalent since there is no $\sigma \in S_3$ with $\sigma(C_1)=C_2$.
+    \end{block}
+
+\framebreak
+    
+    \begin{block}{Proposition 2}
+        Let $C_1, C_2 \subseteq \mathbb{F}_q^n$ be permutation equivalent. Then for any generator matrix $\mathbf{G_1}$ of $C_1$ and $\mathbf{G_2}$ of $C_2$, there exist a $n \times n$ permutation matrix $\mathbf{P}$ and an invertible matrix $\mathbf{S} \in GL_k(\mathbb{F}_q)$ such that
+        \[
+        \mathbf{SG_1P} = \mathbf{G_2}.
+        \]
+    \end{block}
+
+    \begin{block}{Proof}
+        Let $C_1$ and $C_2$ be permutation equivalent. Then $\sigma(C_1) = C_2$ for some $\sigma\in S_n$.\\Let $G_1$ be the generator matrix of $C_1$ so that we have $C_2 = \{\mathbf{x}G_1P \mid\mathbf{x}\in \mathbf{F}_n^k\}$ where $P$ is a permutation matrix of $\sigma$. Thus, $G_1P$ is a generator matrix of $G_2$\\ We can obtain a generator matrix of $G_2$ of $C_2$ by using a different basis for $G_1P$. Thus we can find an invertible matrix $S \in GL_k{\mathbb({F}_q)}$ such that $G_2 = S(G_1P)$.
+    \end{block}
+    
+\framebreak
+
+    \begin{exampleblock}{Example}
+        We can also check the equivalence of $C_1$ and $C_2$ with this proposition.
+        Let $P$ be the permutation matrix representing $\sigma(12)$ so that
+        \[
+        P = \begin{pmatrix}
+            0 & 1 & 0 \\1 & 0 & 0 \\0 & 0 & 1
+        \end{pmatrix}.\\
+        \text{ Then }G_1P = \begin{pmatrix}
+            1&2&0\\0&1&1
+        \end{pmatrix}.
+        \]\\
+        We want such $S \in GL_2(\mathbb{F}_3)$ so that $\begin{pmatrix}
+            s_1&s_2\\s_3&s_4
+        \end{pmatrix}\begin{pmatrix}
+            1&2&0\\0&1&1
+        \end{pmatrix} = \begin{pmatrix}
+            1&0&1\\0&1&0
+        \end{pmatrix}$\\
+        So $s_1=s_4=1$, $s_2=s_3=0$, $2s_1+s_2=1$, $2s_3+s_4=0$, and $s_1s_4-s_2s_3 \neq0$.
+        No such solution exists. \\We repeat the same processes for all $3!=6$ permutation matrices and obtain no solution.        
+    \end{exampleblock}
+    
+\end{frame}

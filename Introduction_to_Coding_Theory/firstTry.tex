@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry} % adjust margins
+\usepackage{mathtools}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{example}
+\usepackage{makeidx}
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\makeindex
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+\vbox{ }
+
+\vbox{ }
+
+\begin{center}
+% Upper part of the page
+\textsc{\LARGE DRP Türkiye 2025}\\[1.5cm]
+
+\vbox{ }
+% Title
+{ \huge \bfseries Introduction to Code Based Cryptography}\\[0.5cm]
+{\large June-August, 2025}\\[0.5cm]
+% Author and supervisor
+\begin{minipage}{0.5\textwidth}
+\begin{flushleft} \large
+\emph{Mentees:}\\
+Ronahi Haykır\\ 
+Fatemeh Gholami Ghahderijani 
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Mentor:} \\
+Dr. Yağmur Çakıroğlu\\
+\end{flushright}
+\end{minipage}
+\\[2cm]
+% Abstract
+\begin{abstract}
+dotdotdot    
+\end{abstract}
+
+\vfill
+% Bottom of the page
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+\newpage
+\null
+\thispagestyle{empty}
+\newpage
+
+% Contents
+\tableofcontents
+
+\thispagestyle{empty}
+\newpage
+\null
+\thispagestyle{empty}
+\newpage
+
+\section{Introduction}
+Code-based cryptography is one of the main candidates of post-quantum cryptography, that is to prevent the quantum computers to solve an integer factorization or the discrete logarithm problem over an elliptic curve or over a finite field. It is using hard problems from the algebraic coding theory. The problems usually contain decoding a random linear code which are NP-hard.
+
+We will not cover post-quantum cryptography. Our aim is to equip the reader with a general knowledge about the algebraic coding theory and code-based cryptography. The first section introduces the general terminology and important varieties of codes.
+
+\section{Algebraic Coding Theory}
+
+\subsection{Basics on Hamming-Metric Codes}
+
+\begin{definition}
+hamming codes, hamming weight/distance etc.    
+\end{definition}
+
+\subsection{Generalized Reed-Solomon Codes}
+\subsection{Goppa Codes}
+\subsection{Cyclic Codes}
+\subsection{Reed-Muller Codes}
+\subsection{Rank-Metric Codes}
+\subsection{Gabidulin Codes}
+\subsection{Code Equivalence}
+\subsection{Restricted Errors}
+
+\section{Cryptography}
+
+\subsection{Public-Key Encryption}
+\subsection{Key-Encapsulation Mechanisms}
+\subsection{Digital Signature Schemes}
+\subsection{Fiat-Shamir Transform}
+
+\section{Code-Based Public-Key Encryption Frameworks}
+
+\subsection{McEliece Framework}
+\subsection{Niederreiter Framework}
+
+% References
+\import{./}{bibliography.tex}
+\end{document}

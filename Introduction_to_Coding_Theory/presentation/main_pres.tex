@@ -1,0 +1,334 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\usepackage{mathpazo}
+\usepackage{eulervm}
+\usepackage{natbib}
+\usepackage{tikz}
+\usepackage{blkarray}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{adjustbox}
+\usepackage{url}
+
+\usepackage[citations,definitionLists,hashEnumerators,smartEllipses,tightLists=false,pipeTables,tableCaptions,hybrid]{markdown}
+\usepackage{longtable}
+%\usepackage[table]{xcolor}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\A}{\mathbb{A}}
+\def\P{{\mathbb P}}
+\def\B{{\mathbf b}}
+\def\x{{\mathbf x}}
+\def\X{{\mathbb X}}
+\def\d{{\delta}}
+\def\w{{\mathbf w}}
+\def\W{{\mathbf W}}
+\def\a{{\mathbf a}}
+\def\b{{\mathbf b}}
+\newcommand{\sA}{{\mathcal A}}
+\newcommand{\sB}{{\mathcal B}}
+\newcommand{\sC}{{\mathcal C}}
+\newcommand{\sD}{{\mathcal D}}
+\newcommand{\sE}{{\mathcal E}}
+\newcommand{\sF}{{\mathcal F}}
+\newcommand{\sG}{{\mathcal G}}
+\newcommand{\sH}{{\mathcal H}}
+\newcommand{\sI}{{\mathcal I}}
+\newcommand{\sJ}{{\mathcal J}}
+\newcommand{\sK}{{\mathcal K}}
+\newcommand{\sL}{{\mathcal L}}
+\newcommand{\sM}{{\mathcal M}}
+\newcommand{\sN}{{\mathcal N}}
+\newcommand{\sO}{{\mathcal O}}
+\newcommand{\sP}{{\mathcal P}}
+\newcommand{\sQ}{{\mathcal Q}}
+\newcommand{\sR}{{\mathcal R}}
+\newcommand{\sS}{{\mathcal S}}
+\newcommand{\sT}{{\mathcal T}}
+\newcommand{\sU}{{\mathcal U}}
+\newcommand{\sV}{{\mathcal V}}
+\newcommand{\sW}{{\mathcal W}}
+\newcommand{\sX}{{\mathcal X}}
+\newcommand{\sY}{{\mathcal Y}}
+\newcommand{\sZ}{{\mathcal Z}}
+\newcommand{\nn}{{\nonumber}}
+\newcommand{\tres}{\operatorname{res}^\T}
+\newcommand{\an}{\text{\rm an}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\lin}{\operatorname{lin}}
+\newcommand{\inter}{\operatorname{int}}
+\newcommand{\Vertex}{\operatorname{Vert}}
+\newcommand{\Mat}{\operatorname{Mat}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Char}{\operatorname{char}}
+\newcommand{\cdeg}{\operatorname{cdeg}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\St}{\operatorname{St}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\dv}{\operatorname{div}}
+ \newcommand{\Vol}{\operatorname{Vol}}
+  \newcommand{\Ehr}{\operatorname{Ehr}}
+
+\def\lm{\textrm{\small LM}}
+
+\newcommand{\M}{\mathbb M}
+
+  
+\newcommand{\dis}{\displaystyle}
+\newcommand{\Supp}{\operatorname{Supp}}
+%\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Ker}{\operatorname{Ker}} 
+\newcommand{\im}{\operatorname{Im}} 
+\newcommand{\depth}{\operatorname{depth}}
+\newcommand{\h}{\operatorname{height}}
+%\newcommand{\deg}{\operatorname{deg}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\reg}{\operatorname{reg}}
+\newcommand{\Cl}{\operatorname{Cl}} 
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\ck}{\check}
+\newcommand{\sig}{\sigma}
+\newcommand{\Sig}{\Sigma}
+\newcommand{\sat}{\operatorname{Sat}}
+  \newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\Tq}{{ (\F_q^*)}}
+\newcommand{\cC}{\cl C}
+\DeclareMathOperator{\red}{Red}
+\DeclareMathOperator{\den}{den}
+\newcommand{\cl}[1]{\mathcal{#1}}
+\newcommand{\ov}{\overline}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\def\aa{{\bf \alpha}}
+\def\bb{\beta}
+\def\a{{\bf a}}
+\def\t{{\bf t}}
+\def\q{{\bf q}}
+\def\y{{\bf y}}
+\def\z{{\bf z}}
+\def\uu{{\bf u}}
+\def\vv{{\bf v}}
+\def\x{{\bf x}}
+\def\m{{\bf m}}
+\def\k{{\mathbb k}}
+\def\kay{{\chi}}
+\def\b{{\bf b}}
+\def\e{{\bf e}}
+\def\ev{{\text{ev}}}
+\newcommand{\cG}{\cl G}
+\def\aa{\alpha}
+\def\Ta{\Tilde{\alpha}}
+\def\Tia{\Tilde{a}}
+\def\Tid{\Tilde{d}}
+
+\newcommand{\Or}{\mathcal{O}}
+\newcommand{\fp}{{\mathfrak p}}
+\newcommand{\fq}{{\mathfrak q}}
+\newcommand{\fm}{{\mathfrak m}}
+
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\Span}{Span}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\size}[1]{\left|#1\right|}
+\newcommand{\calX}{\mathcal X}
+\newcommand{\calY}{\mathcal Y}
+
+\newcommand{\Floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\Floorfrac}[2]{\left\lfloor\frac{#1}{#2}\right\rfloor}
+\newcommand{\Ceil}[1]{\left\lceil #1 \right\rceil}
+
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{construction}{Construction}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+
+
+%\usetheme{Warsaw}
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+\usefonttheme{serif}
+%\usecolortheme{beaver}
+%\usecolortheme{crane}--sarı
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}--sarı
+
+\DeclareOptionBeamer{compress}{\beamer@compresstrue}
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\useoutertheme[footline=authortitle, footline=frame number,subsection=false]{miniframes}
+\useinnertheme{circles}
+\useoutertheme{tree}
+\usecolortheme{dolphin}
+
+\definecolor{beamer@blendedblue}{rgb}{0.137,0.466,0.741}
+\definecolor{tealblue}{rgb}{0.21, 0.46, 0.53}
+\definecolor{smokyblack}{rgb}{0.06, 0.05, 0.03}
+\setbeamercolor{structure}{fg=smokyblack}
+\setbeamercolor{titlelike}{parent=structure}
+\setbeamercolor{frametitle}{bg=structure!70,fg=white}
+\setbeamerfont{frametitle}{size=\small,series=\bfseries}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{item}{fg=black}
+\setbeamertemplate{page number in head/foot}[totalframenumber] %Pour ajouter le numéro des slides
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+
+\setbeamercolor{block title}{fg=white,bg=smokyblack}
+\setbeamercolor{block body}{fg=black,bg=smokyblack!10}
+
+\setbeamercolor{block title example}{fg=white,bg=teal}
+\setbeamercolor{block body example}{fg=black,bg=teal!10}
+
+\definecolor{glaucous}{rgb}{0.38, 0.51, 0.71}
+\definecolor{ochre}{rgb}{0.8, 0.47, 0.13}
+\definecolor{chromeyellow}{rgb}{1.0, 0.65, 0.0}
+\setbeamercolor{block title alerted}{fg=white,bg=ochre!45!chromeyellow!90}
+\setbeamercolor{block body alerted}{fg=black,bg=ochre!95!chromeyellow!20}
+
+\setbeamercolor{frametitle}{bg=tealblue!75,fg=white}
+
+\setbeamercolor{block title theorem}{fg=white,bg=ochre!45!chromeyellow!90}
+\setbeamercolor{block body theorem}{fg=black,bg=ochre!95!chromeyellow!20}
+
+\setbeamercolor{block title definition}{fg=white,bg=ochre!45!chromeyellow!90}
+\setbeamercolor{block body definition}{fg=black,bg=ochre!95!chromeyellow!20}
+
+\setbeamertemplate{frametitle}{%
+	\nointerlineskip%
+	\begin{beamercolorbox}[wd=\paperwidth,ht=2.0ex,dp=0.6ex]{frametitle}
+		\hspace*{1ex}\insertframetitle%
+	\end{beamercolorbox}%
+}
+
+\makeatletter
+\patchcmd{\slideentry}{\advance\beamer@tempdim by -.05cm}{\advance\beamer@tempdim by\beamer@vboxoffset\advance\beamer@tempdim by\beamer@boxsize\advance\beamer@tempdim by 1.2\pgflinewidth}{}{}
+\patchcmd{\slideentry}{\kern\beamer@tempdim}{\advance\beamer@tempdim by 2pt\advance\beamer@tempdim by\wd\beamer@sectionbox\kern\beamer@tempdim}{}{}
+\makeatother
+
+\mode<all>
+%\includeonlyframes{current}
+
+\setbeamersize{text margin left=0.8cm,text margin right=0.8cm}
+
+\setbeamertemplate{navigation symbols}{}
+\makeatletter
+\g@addto@macro\normalsize{%
+	\setlength\belowdisplayskip{0.2em}
+	\setlength\abovedisplayskip{0.2em}
+}
+
+%----------------
+
+
+\colorlet{darkred}{red!80!black}
+\colorlet{darkblue}{blue!80!black}
+\colorlet{darkgreen}{green!40!black}
+
+\title[Code-Based Cryptography]{Introduction to Code-Based Cryptography}
+\author[R. Haykır, F. Gholami Ghahderijani]{Mentees: Ronahi Haykır, Fatemeh Gholami Ghahderijani\\ Boğaziçi  University and Isfahan University}
+\institute[]{
+Mentor: Dr. Yağmur Çakıroğlu
+\\Hacettepe University
+}
+\date{August 9, 2025}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\begin{frame}
+    \begin{center}
+        \Huge{ \textbf{Part One}}\\
+        \vskip1em
+        \large{An Introduction on Algebraic Coding Theory As A Basis
+For Code-based Cryprography}
+    \end{center}
+\end{frame}
+
+
+\input{presentation/pres} 
+
+
+\begin{frame}{References}
+    \nocite{*}   
+    \bibliographystyle{plain}
+    \bibliography{ref}      
+\end{frame}
+
+
+
+
+\begin{frame}
+    \frametitle{Thank You}
+    \begin{center}
+\Large Thank you for your attention! Questions?
+    \end{center}
+\end{frame}
+
+
+
+\end{document}

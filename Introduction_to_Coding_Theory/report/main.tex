@@ -1,0 +1,73 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry} % adjust margins
+\usepackage{mathtools}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{example}
+\usepackage{makeidx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newtheoremstyle{italichead}  % name
+%  {\topsep}                   % space above
+%  {\topsep}                   % space below
+%  {\normalfont}               % body font
+%  {}                          % indent
+%  {\itshape}                  % head font (italic)
+%  {.}                         % punctuation after head
+%  { }                         % space after head
+%  {}                          % theorem head spec
+
+%\theoremstyle{definition}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{proposition}{Proposition}
+
+%\theoremstyle{italichead}
+%\newtheorem{exmp}{Example}
+%\newtheorem{solution}{Solution}
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{exmp}{Example}
+\newtheorem{solution}{Solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeindex
+
+\usepackage{hyperref}            
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={DRP 2025}, 
+    pdfauthor={Ronahi}, 
+}
+
+\begin{document}
+
+% Title page
+
+\import{./}{title.tex}
+
+
+\clearpage 
+\tableofcontents
+\clearpage
+
+\import{./}{report.tex}
+
+
+% References
+\clearpage 
+\addcontentsline{toc}{section}{Reference} 
+\bibliographystyle{plain} 
+\import{./}{bibliography.tex}
+\clearpage 
+\printindex 
+
+\end{document}
