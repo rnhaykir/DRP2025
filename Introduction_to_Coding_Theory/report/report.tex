@@ -9,9 +9,11 @@ Consider a finite field $\mathbb F_q$ of q elements where q is a prime power.
 \begin{definition}[Linear Codes] Let $1 \leq k \leq n$ be positive integers. $C$ is an $[n, k]$ \textit{linear code} over $\mathbb F_q$, if $C$ is a $k$-dimensional linear subspace of $\mathbb F_q^n$.
 \end{definition}
 
-\noindent A \textit{code} is basically any subset $C \subseteq F_q^n$.
+\noindent In other words, a \textit{code} is basically any subset $C \subseteq F_q^n$.
 \\[0.4cm]
-Here, the parameter n is the \textit{length} and k is the \textit{dimension} of the code $C$. Elements of $C$ are called \textit{codewords}, $R = k/n$ is the \textit{rate} of the code. We determine a metric in $\mathbb F_q^n$ to calculate the distance between any two vectors. Here, we will be focusing on \textit{Hamming-Metric}.
+There are there main parameters. Then, the parameter $n$ is the \textit{length} and $k$ is the \textit{dimension} of the code $C$. Also, the other parameter $d_{\min}$ is the \textit{minimum distance} of the code $C$. In addition, elements of $C$ are called \textit{codewords}. 
+
+For define the minimum distance firstly we give definition of Hamming Distance. 
 
 \begin{definition}[Hamming Weight]
 Let n be a positive integer. The \textit{Hamming weight} of 
@@ -35,11 +37,11 @@ For $\textbf{x}, \textbf{y} \in \mathbb F_q^n$ the \textit{Hamming distance} bet
 \mid x_i \neq y_i \,\} \right|.
 \]    
 \end{definition}
-Notice that for the linear codes, Hamming distance is an induced form of Hamming weight,
+\noindent Notice that for the linear codes, Hamming distance is an induced form of Hamming weight,
 \[
 \mathrm{d}_H(x, y) = \mathrm{wt}_H(x-y).
 \]
-as linear codes are closed under the operations of a finite field.
+as linear codes are closed under the operations of a finite field. In other words, we know that Hamming distance and Hamming weight are same for linear codes.
 
 \begin{definition}[Minimum Distance]
 Let $C$ be a code over $\mathbb F_q$. The \textit{minimum Hamming distance} of $C$ is given by
@@ -83,6 +85,14 @@ Then $d_H(\mathbf{c_1}, \mathbf{c_2})\leq d_H-1$ which contradicts with the defi
 Now let $y$ be any received word produced from $\mathbf{c}\in C$ with $d_H(y, \mathbf{c})\leq t$, that is with at most $t$ errors. Then we know that $y\in B_H(\mathbf{c'}, t)$ if and only if $\mathbf{c'}=\mathbf{c}$. So, $c$ is the unique codeword of $y$ up to distance $t$. That is, $C$ can correct errors up to $t = \left\lfloor\frac{d_H - 1}{2}\right\rfloor$. 
 \end{proof}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{balltheory.png}
+    \caption{A visualization of the proof of \textbf{Proposition 1}.}
+    \label{fig:ball}
+\end{figure}
+In this figure \ref{fig:ball}, we know that $c_1,c_2,c_3\in C$ are codewords and the distance between each codeword is exactly $d$. And also if we have error in the $z$ place, our code can correct it since the value of $t$.
+
 \begin{theorem}[Singleton Bound]
 \textit{Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then,}
 \[
@@ -92,8 +102,10 @@ d_H \leq n - k + 1.
 
 \begin{proof}
     Let $C$ be a linear code over $\mathbb{F}_q^n$ and define\\
-    $\varphi: C \xrightarrow{}\mathbb{F}_q^{n-d_H+1}$\\
-    where $\varphi(c_1, c_2, \dots,c_n) = (c_1,c_2,\dots,c_{n-d_H+1})$.\\ 
+    \begin{align*}
+    \varphi&: C \xrightarrow{}\mathbb{F}_q^{n-d_H+1}\\
+    &\varphi(c_1, c_2, \dots,c_n) = (c_1,c_2,\dots,c_{n-d_H+1}).\\   
+    \end{align*} 
     Let $c,c' \in C$ and $\varphi(c)=\varphi(c')$.
     Then $d_H(c, c') \leq d_H-1$.
     But $d_H(C)=d_H$ so $d_H(c, c') \geq d_H$. So $c = c'$. 
@@ -134,9 +146,9 @@ A parity-check matrix $\mathbf{H}$ of $C$ is a generator matrix of $C^\perp$.
 \end{proposition}
 \begin{proof}
     By the definition of parity-check matrix $H$, we have $\mathbf{c}H_i^T=0$ where $H_i$ is the $i^{th}$ row of $H$ for $\mathbf{c}\in C$. Then $H_i\in C^\perp$. Thus $rowspan(H) \subseteq C^\perp.$\\
-    The duality gives $dim(C)+dim(C^\perp)=n$ so $dim(C^\perp)=n-k$.\\
-    As the syndrome of $C$ defines the error patterns, $H$ have independent rows, thus it has full row rank, that is $dim(rowspan(H))=n-k$.\\
-    Then we have $dim(C^\perp)=dim(rowspan(H))=n-k$. With the inclusion above, we can conclude that $rowspan(H) = C^\perp$.
+    The duality gives $\dim(C)+\dim(C^\perp)=n$ so $\dim(C^\perp)=n-k$.\\
+    As the syndrome of $C$ defines the error patterns, $H$ have independent rows, thus it has full row rank, that is $\dim(rowspan(H))=n-k$.\\
+    Then we have $\dim(C^\perp)=dim(rowspan(H))=n-k$. With the inclusion above, we can conclude that $rowspan(H) = C^\perp$.
     Therefore, rows of the parity-check matrix $H$ of $C$ form a basis for the dual code $C^\perp$.
 \end{proof}
 \vspace{1.0cm}
@@ -160,29 +172,28 @@ Determine all information sets of this code.
 \begin{solution}
     Information set of $C$ is $I \subset \{\,1,2,3,4\,\}$ of size $k=2$. We want the columns of $G$ that are linearly independent.\\
 
-    $\det\begin{pmatrix}
+\begin{equation*}
+    \det\begin{pmatrix}
         1&3\\0&4
-    \end{pmatrix}=4\neq0$, 
-
-    $\det\begin{pmatrix}
+    \end{pmatrix}=4\neq0, \quad
+    \det\begin{pmatrix}
         1&2\\0&4
-    \end{pmatrix}=4\neq0$, 
-
-    $\det\begin{pmatrix}
+    \end{pmatrix}=4\neq0, \quad
+    \det\begin{pmatrix}
         1&3\\0&3
-    \end{pmatrix}=3\neq0$, 
-
-    $\det\begin{pmatrix}
+    \end{pmatrix}=3\neq0,
+\end{equation*}
+\begin{equation*}
+    \det\begin{pmatrix}
         3&2\\4&4
-    \end{pmatrix}=4\neq0$, 
-
-    $\det\begin{pmatrix}
+    \end{pmatrix}=4\neq0, \quad
+    \det\begin{pmatrix}
         3&3\\4&3
-    \end{pmatrix}=-3\neq0$, 
-
-    $\det\begin{pmatrix}
+    \end{pmatrix}=-3\neq0, \quad
+    \det\begin{pmatrix}
         2&3\\4&3
-    \end{pmatrix}=-6\neq0$.
+    \end{pmatrix}=-6\neq0.
+\end{equation*}
     
 All matrices are invertible, thus all information sets of $C$ are $\{1,2\},\{1,3\},\{1,4\},\{2,3\},\{2,4\},\{3,4\}.$
 \end{solution}
@@ -279,7 +290,7 @@ Goppa codes are the alternant codes. Here, GRS codes are particularly chosen wit
 We'll finish this section by giving an example of a binary Goppa code.
 \begin{exmp}
     Choose parameters $[n, m, t]$ as $[3, 3, 2]$.\\
-    Represent $\mathbb{F}_8 \cong \mathbb{F}_2[x]/ \langle x^3+x+1 \rangle$. Let $\alpha$ be the root of $x^3+x+1$. So $\mathbb{F}_8 = \{\,0,1,\alpha,\alpha^2,\alpha+1,\alpha^2+\alpha, \alpha^2+\alpha+1,\alpha^2+1\,\}.$\\ 
+    Represent $\mathbb{F}_8 \cong \mathbb{F}_2[x]/ \langle x^3+x+1 \rangle$. Let $\alpha$ be the root of $x^3+x+1$. So \[\mathbb{F}_8 = \{\,0,1,\alpha,\alpha^2,\alpha+1,\alpha^2+\alpha, \alpha^2+\alpha+1,\alpha^2+1\,\}.\] 
     Let be the irreducible polynomial $G = x^2+x+1 \in \mathbb{F}_8[x]$.\\
     Construct the quotient ring $S_3 = \mathbb{F}_8/\langle x^2+z+1\rangle.$\\
     Choose a set that avoids the roots of $G$ in $S_3$. Let this set be 
@@ -309,7 +320,7 @@ We'll finish this section by giving an example of a binary Goppa code.
         0&0&0
     \end{pmatrix}.$\\[0.4cm]
 \end{center}
-    Dimension $k = n-rank(H)=3-2=1$. Thus these parameter choice gives a trivial code, $\Gamma(\alpha, \beta) = \{\,(0,0,0)\,\}$.\\
+    Dimension $k = n-rank(H)=3-2=1$. Thus these parameter choice gives a trivial code, \[\Gamma(\alpha, \beta) = \{\,(0,0,0)\,\}.\]
     One can choose a greater $n$ for a non-trivial Goppa code.
 \end{exmp}
 
@@ -358,12 +369,11 @@ Let $r \leq m$. Then $dim_{\mathbb{F}_2}(RM_2(m, r)) =
 \sum_{i=0}^r {m\choose i}$ and the minimum distance of $RM_2(m, r) = 2^{m-r}$.
 \end{proposition}
 
-The proposition shows us the restriction on the distance, and therefore the error correction capacity of the Reed-Muller codes by the degree $r$.\\
-In fact, the behavior of Reed-Muller codes is not only determined by degree $r$. For a fixed degree, Reed-Muller codes on weighted projective spaces consider other parameters as well, regarding the weights coming from the space. A more detailed explanation can be found in \cite{WPS2023}.
+In the literature, there are other codes which are Reed-Muller type of the codes. For example, Generalized Reed-Muller codes, Projective Reed-Muller Codes, Weighted Projective Reed-Muller Codes, etc. In this project, we've also discussed the differences of these codes. In WPRM codes for a fixed degree, Reed-Muller type codes on weighted projective spaces consider other parameters as well, regarding the weights coming from the space. Thus, the behavior of these Reed-Muller type codes is not only determined by degree $r$. A more detailed explanation can be found in \cite{WPS2023, WPS2025, Proj}.
 
 \subsection{Rank-Metric Codes}
 
-Until this section, we have talked about the Hamming-metric. We can use other metric spaces in coding theory. This section will introduce rank-metric.
+Until this section, we have talked about the Hamming-metric. We can use other metric spaces in coding theory. In this section, we introduce rank-metric and consider this metric for codes.
 
 \begin{definition}{Rank Metric}
 The \textit{rank weight} of $\mathbf{x}\in \mathbb{F}_{q^m}^n$ is given by
