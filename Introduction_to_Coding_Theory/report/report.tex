@@ -1,4 +1,6 @@
 \section{Introduction}
+Coding theory expresses the mathematical view of point of codes used in error-correcting in communication theory. It has two branches; algebraic and combinatorial. This paper gives an introduction to algebraic coding theory. We start with linear codes over finite fields. As we mention rank-metric and Hamming-metric, our main focus will be on \textit{Hamming-metric}. Hamming-distance is connected to the error detection of a linear code by giving the number of changes we should do on a codeword to obtain another codeword. We give the general definitions of some important family of codes. Reed-Solomon codes, Reed-Muller codes, and Gabidulin codes are obtained by evaluations of polynomials, where the first two are defined on the Hamming-metric and the latter on rank-metric. We give the cyclic code definition to give a familiarity for permutation code equivalence for the later chapter, LDPC code definition just for general knowledge, and Goppa code definition as it is the first code family with an algebraic structure.\\
+Our main objective is to give the reader a general introduction of algebraic coding theory to use this field in cryptography. We believe that this combination will be useful in modern problems, especially in preventing attacks on cryptosystems by quantum computers.  
 
 \section{Algebraic Coding Theory}
 \label{sec:algeb_coding}
@@ -11,9 +13,18 @@ Consider a finite field $\mathbb F_q$ of q elements where q is a prime power.
 
 \noindent In other words, a \textit{code} is basically any subset $C \subseteq F_q^n$.
 \\[0.4cm]
-There are there main parameters. Then, the parameter $n$ is the \textit{length} and $k$ is the \textit{dimension} of the code $C$. Also, the other parameter $d_{\min}$ is the \textit{minimum distance} of the code $C$. In addition, elements of $C$ are called \textit{codewords}. 
+There are three main parameters. Then, the parameter $n$ is the \textit{length} and $k$ is the \textit{dimension} of the code $C$. Also, the other parameter $d_{\min}$ is the \textit{minimum distance} of the code $C$. In addition, elements of $C$ are called \textit{codewords}. 
 
-For define the minimum distance firstly we give definition of Hamming Distance. 
+For defining the minimum distance, firstly we give definition of Hamming Distance. 
+
+\begin{definition}[Hamming Distance]
+For $\textbf{x}, \textbf{y} \in \mathbb F_q^n$ the \textit{Hamming distance} between \textbf{x} and \textbf{y} is the number of components they differ with the same index and is given by
+\[
+\mathrm{d}_H(x, y) =
+\left| \{\, i \in \{1, \dots, n\} 
+\mid x_i \neq y_i \,\} \right|.
+\]    
+\end{definition}
 
 \begin{definition}[Hamming Weight]
 Let n be a positive integer. The \textit{Hamming weight} of 
@@ -29,19 +40,11 @@ $\textbf{x} \in \mathbb F_q^n$ is the number of non-zero components and is given
 % \mid -> such that
 \end{definition}
 
-\begin{definition}[Hamming Distance]
-For $\textbf{x}, \textbf{y} \in \mathbb F_q^n$ the \textit{Hamming distance} between \textbf{x} and \textbf{y} is the number of components they differ with the same index and is given by
-\[
-\mathrm{d}_H(x, y) =
-\left| \{\, i \in \{1, \dots, n\} 
-\mid x_i \neq y_i \,\} \right|.
-\]    
-\end{definition}
 \noindent Notice that for the linear codes, Hamming distance is an induced form of Hamming weight,
 \[
 \mathrm{d}_H(x, y) = \mathrm{wt}_H(x-y).
 \]
-as linear codes are closed under the operations of a finite field. In other words, we know that Hamming distance and Hamming weight are same for linear codes.
+as linear codes are closed under the operations of a finite field. In other words, we know that Hamming distance and Hamming weight are the same for linear codes.
 
 \begin{definition}[Minimum Distance]
 Let $C$ be a code over $\mathbb F_q$. The \textit{minimum Hamming distance} of $C$ is given by
@@ -60,9 +63,9 @@ B_H(r, n, q) =
 \mathrm{wt}_H(\textbf{x}) \leq \textit{r}\,\}.
 \]
 \\[0.4cm]
-The minimum distance of a code is connected to the error correcting capacity of that code. A code can correct up to t errors if for all 
+The minimum distance of a code is connected to the error correcting capacity of that code. A code can correct up to t errors if for all
 $\mathbf{x} \in \mathbb{F}_q^n$ with $d_H(\mathbf{x}, C) \leq t$, there is a unique $\mathbf{y} \in C$ such that $d_H(\mathbf{x}, \mathbf{y}) \leq t$.\\[0.4cm]
-We construct an \textit{decoding algorithm} $D$ to find the closest codeword $\mathbf{y} \in C$ such that $d_H(\mathbf{x}, \mathbf{y}) \leq t$ for a given 
+We construct a \textit{decoding algorithm} $D$ to find the closest codeword $\mathbf{y} \in C$ such that $d_H(\mathbf{x}, \mathbf{y}) \leq t$ for a given
 $\mathbf{x} \in \mathbb{F}_q^n$.\\[0.4cm]
 \begin{proposition}
 Let $C$ be a linear code over $\mathbb{F}_q^n$ with minimum distance $d_H$. $C$ can correct up to 
@@ -81,8 +84,8 @@ By the triangle inequality, we have
 \[
 d_H(\mathbf{c_1}, \mathbf{c_2})\leq d_H(\mathbf{c_1},\mathbf{y}) +d_H(\mathbf{c_1},\mathbf{y})\leq t+t=2t\leq d_H-1. 
 \]
-Then $d_H(\mathbf{c_1}, \mathbf{c_2})\leq d_H-1$ which contradicts with the definition of Hamming distance. Thus, $B_H(\mathbf{c_1}, t)$ and $B_H(\mathbf{c_2}, t)$ are disjoint balls.\\[0.2cm]
-Now let $y$ be any received word produced from $\mathbf{c}\in C$ with $d_H(y, \mathbf{c})\leq t$, that is with at most $t$ errors. Then we know that $y\in B_H(\mathbf{c'}, t)$ if and only if $\mathbf{c'}=\mathbf{c}$. So, $c$ is the unique codeword of $y$ up to distance $t$. That is, $C$ can correct errors up to $t = \left\lfloor\frac{d_H - 1}{2}\right\rfloor$. 
+Then $d_H(\mathbf{c_1}, \mathbf{c_2})\leq d_H-1$, which contradicts the definition of Hamming distance. Thus, $B_H(\mathbf{c_1}, t)$ and $B_H(\mathbf{c_2}, t)$ are disjoint balls.\\[0.2cm]
+Now let $y$ be any received word produced from $\mathbf{c}\in C$ with $d_H(y, \mathbf{c})\leq t$, that is, with at most $t$ errors. Then we know that $y\in B_H(\mathbf{c'}, t)$ if and only if $\mathbf{c'}=\mathbf{c}$. So, $c$ is the unique codeword of $y$ up to distance $t$. That is, $C$ can correct errors up to $t = \left\lfloor\frac{d_H - 1}{2}\right\rfloor$. 
 \end{proof}
 
 \begin{figure}[h]
@@ -91,7 +94,7 @@ Now let $y$ be any received word produced from $\mathbf{c}\in C$ with $d_H(y, \m
     \caption{A visualization of the proof of \textbf{Proposition 1}.}
     \label{fig:ball}
 \end{figure}
-In this figure \ref{fig:ball}, we know that $c_1,c_2,c_3\in C$ are codewords and the distance between each codeword is exactly $d$. And also if we have error in the $z$ place, our code can correct it since the value of $t$.
+In this figure \ref{fig:ball}, we know that $c_1,c_2,c_3\in C$ are codewords and that the distance between each codeword is exactly $d$. And also if we have an error in the $z$ place, our code can correct it since the value of $t$.
 
 \begin{theorem}[Singleton Bound]
 \textit{Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then,}
@@ -104,7 +107,7 @@ d_H \leq n - k + 1.
     Let $C$ be a linear code over $\mathbb{F}_q^n$ and define\\
     \begin{align*}
     \varphi&: C \xrightarrow{}\mathbb{F}_q^{n-d_H+1}\\
-    &\varphi(c_1, c_2, \dots,c_n) = (c_1,c_2,\dots,c_{n-d_H+1}).\\   
+    &(c_1, c_2, \dots,c_n) \mapsto (c_1,c_2,\dots,c_{n-d_H+1}).\\   
     \end{align*} 
     Let $c,c' \in C$ and $\varphi(c)=\varphi(c')$.
     Then $d_H(c, c') \leq d_H-1$.
@@ -112,19 +115,19 @@ d_H \leq n - k + 1.
     $\varphi$ is injective and $\varphi(C) \subseteq \mathbb{F}_q^{n-d_H+1}$. Then $q^{n-d_H+1}\geq|\varphi(C)|=|C|=q^k$.\\
     Thus, $d_H\leq n-k+1 $.
 \end{proof}
-We call the codes that achieve the Single bound \textit{maximum distance separable} (MDS) codes which can correct the maximum amount of errors.
+We call the codes that achieve the Singleton bound \textit{maximum distance separable} (MDS) codes which can correct the maximum amount of errors.
 
 \begin{definition}[Generator Matrix]
-Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{G} \in \mathbb{F}_q^{k \times n}$ is \textit{generator matrix of} $C$ if 
+Let $k \leq n$ be positive integers and $C$ be an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{G} \in \mathbb{F}_q^{k \times n}$ is \textit{generator matrix of} $C$ if 
 \[
 C = 
 \{\, \mathbf{xG} \mid \mathbf{x} \in \mathbb{F}_q^k\,\},
 \]
-that is the rows of $\mathbf{G}$ forms a basis of $C$.
+that is, the rows of $\mathbf{G}$ form a basis of $C$.
 \end{definition}
 
 \begin{definition}[Parity-Check Matrix]
-Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{H} \in \mathbb{F}_q^{(n-k) \times n}$ is \textit{parity-check matrix of} $C$ if 
+Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. Then, the matrix $\mathbf{H} \in \mathbb{F}_q^{(n-k) \times n}$ is \textit{parity-check matrix of} $C$ if
 \[
 C = 
 \{\, \mathbf{y} \mid \mathbf{Hy}^T = 0\,\}.
@@ -134,7 +137,7 @@ Parity-check matrices are involved in error detection.
 We call $\mathbf{xH}^T$ a \textit{syndrome} for any $\mathbf{x} \in \mathbb{F}_q^n$.
 
 \begin{definition}[Dual Code]
-Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. $C^\perp$ $[n, n-k]$ linear code over $\mathbb{F}_q$ is the \textit{dual code} of $C$ defined as,
+Let $k \leq n$ be positive integers and $C$ an $[n, k]$ linear code over $\mathbb{F}_q$. $C^\perp$ $[n, n-k]$ linear code over $\mathbb{F}_q$ is the \textit{dual code} of $C$ defined as
 \[
 C^\perp =
 \{\, \mathbf{x} \in \mathbb{F}_q^n \mid \langle \mathbf{x}, \mathbf{y} \rangle = 0 \quad \forall y \in C\,\}.
@@ -147,7 +150,7 @@ A parity-check matrix $\mathbf{H}$ of $C$ is a generator matrix of $C^\perp$.
 \begin{proof}
     By the definition of parity-check matrix $H$, we have $\mathbf{c}H_i^T=0$ where $H_i$ is the $i^{th}$ row of $H$ for $\mathbf{c}\in C$. Then $H_i\in C^\perp$. Thus $rowspan(H) \subseteq C^\perp.$\\
     The duality gives $\dim(C)+\dim(C^\perp)=n$ so $\dim(C^\perp)=n-k$.\\
-    As the syndrome of $C$ defines the error patterns, $H$ have independent rows, thus it has full row rank, that is $\dim(rowspan(H))=n-k$.\\
+    As the syndrome of $C$ defines the error patterns, $H$ have independent rows, thus it has full row rank, that is, $\dim(rowspan(H))=n-k$.\\
     Then we have $\dim(C^\perp)=dim(rowspan(H))=n-k$. With the inclusion above, we can conclude that $rowspan(H) = C^\perp$.
     Therefore, rows of the parity-check matrix $H$ of $C$ form a basis for the dual code $C^\perp$.
 \end{proof}
@@ -199,7 +202,7 @@ All matrices are invertible, thus all information sets of $C$ are $\{1,2\},\{1,3
 \end{solution}
 
 \subsection{Generalized Reed-Solomon Codes}
-Now we can start introducing the important codes used in code-based cryptography. The first code will be an error-correction code called Generalized Reed-Solomon codes (GRS). Reed-Solomon codes are the first codes we will see that are obtained by polynomial evaluation.
+Now we can introduce the important codes used in code-based cryptography. The first code will be an error-correction code called Generalized Reed-Solomon codes (GRS). Reed-Solomon codes are the first codes we will see that are obtained by polynomial evaluation.
 
 \begin{definition}[Reed-Solomon Codes]
 Let $k \leq n \leq q$ be positive integers. Let $\alpha \in \mathbb{F}_q^n$ be an n-tuple of distinct elements and $\beta \in \mathbb{F}_q^n$ be an n-tuple of nonzero elements. The \textit{Generalized Reed-Solomon code} of length $n$ and dimension $k$ is defined as
@@ -267,7 +270,7 @@ Let $\alpha \in \mathbb{F}_{q^m}^n$ be an n-tuple of distinct elements and $G(\a
 \]
 \end{definition}
 
-The parity-check matrix of a Goppa code is defined as,
+The parity-check matrix of a Goppa code is defined as
 \[
 \mathbf{H}=\begin{pmatrix}
     G^{-1}(\alpha_1)&\dots&G^{-1}(\alpha_n)\\
@@ -287,7 +290,7 @@ A_{m,n,k}[\alpha,\beta]=GRS_{m,n,k}[\alpha,\beta]\cap\mathbb{F}_q^n.
 \]
 Goppa codes are the alternant codes. Here, GRS codes are particularly chosen with the weights $\beta_i = g(\alpha_i)^{-1}$ for a Goppa polynomial $g$.\\[0.2cm] 
 
-We'll finish this section by giving an example of a binary Goppa code.
+We will finish this section by giving an example of a binary Goppa code.
 \begin{exmp}
     Choose parameters $[n, m, t]$ as $[3, 3, 2]$.\\
     Represent $\mathbb{F}_8 \cong \mathbb{F}_2[x]/ \langle x^3+x+1 \rangle$. Let $\alpha$ be the root of $x^3+x+1$. So \[\mathbb{F}_8 = \{\,0,1,\alpha,\alpha^2,\alpha+1,\alpha^2+\alpha, \alpha^2+\alpha+1,\alpha^2+1\,\}.\] 
@@ -320,7 +323,7 @@ We'll finish this section by giving an example of a binary Goppa code.
         0&0&0
     \end{pmatrix}.$\\[0.4cm]
 \end{center}
-    Dimension $k = n-rank(H)=3-2=1$. Thus these parameter choice gives a trivial code, \[\Gamma(\alpha, \beta) = \{\,(0,0,0)\,\}.\]
+    Dimension $k = n-rank(H)=3-2=1$. Thus, these parameter choice gives a trivial code, \[\Gamma(\alpha, \beta) = \{\,(0,0,0)\,\}.\]
     One can choose a greater $n$ for a non-trivial Goppa code.
 \end{exmp}
 
@@ -349,7 +352,7 @@ Let $w \in \mathbb{N}$ be constant. An $[n, k]$ linear code $C$ over $\mathbb{F}
 
 Reed-Muller codes are another code structure obtained from evaluation of polynomials. Reed-Muller codes use multivariate polynomials as opposed to Reed-Solomon codes, which use one variable polynomials.
 
-Let $p$ be a prime, $m,r$ positive integers, and $q = p^n$. Let $\mathbb{F}_q[x_1, \dots, x_m]_\leq r$ be the $\mathbb{F}_q$-vector space of polynomials with $m$ variables and degree at most $r$. Fix an order $\{\, \alpha_1, \dots, \alpha_{q^m} \,\}$ of $\mathbb{F}_q^m$.
+Let $p$ be a prime, $m,r$ be positive integers, and $q = p^n$. Let $\mathbb{F}_q[x_1, \dots, x_m]_\leq r$ be the $\mathbb{F}_q$-vector space of polynomials with $m$ variables and degree at most $r$. Fix an order $\{\, \alpha_1, \dots, \alpha_{q^m} \,\}$ of $\mathbb{F}_q^m$.
 
 \begin{definition}
 The \textit{Reed-Muller} code $RM_q(m, r)$ over $\mathbb{F}_q$ is the image of the map
@@ -369,7 +372,7 @@ Let $r \leq m$. Then $dim_{\mathbb{F}_2}(RM_2(m, r)) =
 \sum_{i=0}^r {m\choose i}$ and the minimum distance of $RM_2(m, r) = 2^{m-r}$.
 \end{proposition}
 
-In the literature, there are other codes which are Reed-Muller type of the codes. For example, Generalized Reed-Muller codes, Projective Reed-Muller Codes, Weighted Projective Reed-Muller Codes, etc. In this project, we've also discussed the differences of these codes. In WPRM codes for a fixed degree, Reed-Muller type codes on weighted projective spaces consider other parameters as well, regarding the weights coming from the space. Thus, the behavior of these Reed-Muller type codes is not only determined by degree $r$. A more detailed explanation can be found in \cite{WPS2023, WPS2025, Proj}.
+In the literature, there are other codes that are Reed-Muller type of codes. For example, Generalized Reed-Muller codes, Projective Reed-Muller Codes, Weighted Projective Reed-Muller Codes, etc. In this project, we've also discussed the differences of these codes. In WPRM codes for a fixed degree, Reed-Muller type codes on weighted projective spaces consider other parameters as well, regarding the weights coming from the space. Thus, the behavior of these Reed-Muller type codes is not only determined by degree $r$. A more detailed explanation can be found in \cite{WPS2023, WPS2025, Proj}.
 
 \subsection{Rank-Metric Codes}
 
@@ -390,7 +393,7 @@ The \textit{minimum rank distance} of a linear code $C\subseteq \mathbb{F}_{q^m}
 \[
 d_R(C)=\min\{\,wt_R(\mathbf{c}\mid\mathbf{c}\neq0, \mathbf{c}\in C\,\}.
 \]
-Rank-metric codes are a more broad subject but for this paper only the general definitions will be enough.    
+Rank-metric codes are a more broad subject, but for this paper only the general definitions will be enough.    
 \end{definition}
 
 \subsection{Gabidulin Codes}
@@ -427,7 +430,7 @@ where $[i] = q^i$.
 \end{definition}
 
 \begin{definition}[Generalized Gabidulin Codes]
-Let $k \leq n \leq m$ be positive integers and $g \in \mathbb{F}_{q^m}^n$ have independent components and let $s$ and $m$  be positive integers with $gcd(s, m) = 1$. The \textit{generalized Gabidulin} code $C \subset \mathbb{F}_{q^m}^n$ of dimension $k$ is the rowspan of $M_{1, k}(g_1, \dots, g_n)$.    
+Let $k \leq n \leq m$ be positive integers and $g \in \mathbb{F}_{q^m}^n$ have independent components and let $s$ and $m$  be positive integers with $gcd(s, m) = 1$. The \textit{generalized Gabidulin} code $C \subset \mathbb{F}_{q^m}^n$ of dimension $k$ is the row span of $M_{1, k}(g_1, \dots, g_n)$.    
 \end{definition}
 
 Thus, a generalized Gabidulin code is the rank analog of a generalized Reed-Solomon code.
@@ -473,4 +476,4 @@ Let $C_1, C_2 \subseteq \mathbb{F}_q^{m \times n}$. $C_1$ and $C_2$ are equivale
 \end{definition}
 
 \section{Conclusion}
-Until now, we have seen the fundamental definitions and intuitions of algebraic coding theory. We mostly focused on Hamming-metric and only mention rank-metric. As this paper aims at constructing a basis for code-based cryptography, the reader can now continue with more broad types of code families, decoding algorithms, algebraic applications and of course cryptography.
+Until now, we have seen the fundamental definitions and intuitions of algebraic coding theory. We mostly focused on Hamming-metric and only mention rank-metric. As this paper aims at constructing a basis for code-based cryptography, the reader can now continue with more broad types of code families, decoding algorithms, algebraic applications, and of course cryptography.
